@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Checkout Form</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* minimal inline tweaks for clarity */
+    .price { font-weight: bold; margin-top: 5px; }
+    .message { margin-top: 15px; color: green; }
+    .error { color: crimson; }
+    .btn { cursor: pointer; background:#ff523b; color:#fff; padding:12px 25px; border:none; border-radius:20px; display:inline-block; }
+    .btn:hover { background:#b45549; }
+  </style>
+</head>
+<body>
+    
+ <div class="container">
+   <div class="navbar">
+    <div class="logo">
+         <img src="images/logo-coolkiid.jpg" width="125px">
+    </div>
+    <nav>
+        <ul id="MenuItems">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="account.html">Account</a></li>
+        </ul>
+    </nav>
+    <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+    <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+   </div>
+
+<div class="wrapper">
+  <div class="payment">
+    <div class="payment-logo">
+      <p>p</p>
+    </div>
+
+    <h2>Payment Gateway</h2>
+    <p>Price to be paid: <span class="price" id="price-display">R0.00</span></p>
+    <div id="notice" class="error" style="display:none;">No amount found. Falling back to cart contents.</div>
+
+    <br>
+    <div class="form" id="payment-form">
+      <div class="card space icon-relative">
+        <label class="label">Card holder:</label>
+        <input type="text" class="input" placeholder="CooLkiid Kollection" id="cardholder" required>
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="card space icon-relative">
+        <label class="label">Card number:</label>
+        <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Card Number" id="cardnumber" required>
+        <i class="far fa-credit-card"></i>
+      </div>
+      <div class="card-grp space">
+        <div class="card-item icon-relative">
+          <label class="label">Expiry date:</label>
+          <input type="text" name="expiry-data" class="input" data-mask="00 / 00" placeholder="00 / 00" id="expiry" required>
+          <i class="far fa-calendar-alt"></i>
+        </div>
+        <div class="card-item icon-relative">
+          <label class="label">CVC:</label>
+          <input type="text" class="input" data-mask="000" placeholder="000" id="cvc" required>
+          <i class="fas fa-lock"></i>
+        </div>
+      </div>
+
+      <div class="btn" id="pay-button">
+        Pay R<span id="btn-amount">0.00</span>
+      </div> 
+
+      <div class="message" id="success-message" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script>
+  // apply masks
+  $(function() {
+    $('[data-mask="0000 0000 0000 0000"]').mask('0000 0000 0000 0000');
+    $('[data-mask="00 / 00"]').mask('00 / 00');
+    $('[data-mask="000"]').mask('000');
+  });
+
+  // helper to get query param
+  function getQueryParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+
+  // compute/fetch total
+  let total = 0;
+  const totalParam = getQueryParam('total');
+  if (totalParam && !isNaN(parseFloat(totalParam))) {
+    total = parseFloat(totalParam);
+  } else {
+    // fallback: reconstruct from cart in localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length > 0) {
+      total = cart.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
+      document.getElementById('notice').style.display = 'block';
+    } else {
+      // no cart, no total: leave total=0
+      document.getElementById('notice').textContent = 'No cart and no total provided.';
+      document.getElementById('notice').style.display = 'block';
+    }
+  }
+
+  // update UI
+  document.getElementById('price-display').textContent = `R${total.toFixed(2)}`;
+  document.getElementById('btn-amount').textContent = total.toFixed(2);
+
+  // handle pay click
+  document.getElementById('pay-button').addEventListener('click', function() {
+    if (total <= 0) {
+      alert("Nothing to pay for.");
+      return;
+    }
+
+    // Basic validation (could be expanded)
+    const cardholder = document.getElementById('cardholder').value.trim();
+    const cardnumber = document.getElementById('cardnumber').value.replace(/\s+/g, '');
+    const expiry = document.getElementById('expiry').value.trim();
+    const cvc = document.getElementById('cvc').value.trim();
+    if (!cardholder || cardnumber.length < 16 || !expiry || cvc.length < 3) {
+      alert("Please fill in all payment fields correctly.");
+      return;
+    }
+
+    // Simulate processing...
+    // In real app you'd send data securely to backend here.
+
+    // Clear cart
+    try {
+      localStorage.removeItem('cart');
+    } catch (e) {
+      console.warn("Could not clear cart:", e);
+    }
+
+    // Show success
+    const successEl = document.getElementById('success-message');
+    successEl.textContent = `Payment of R${total.toFixed(2)} submitted successfully! Thank you for your order.`;
+    successEl.style.display = 'block';
+
+    // Optionally disable button to prevent duplicate
+    this.style.pointerEvents = 'none';
+    this.textContent = 'Processing...';
+
+    // Example: redirect to confirmation after 2s
+    // setTimeout(() => window.location.href = "confirmation.html", 2000);
+  });
+</script>
+
+<!--footer-->
+<div class="footer">
+  <div class="container">
+      <div class="row">
+          <div class="footer-col-1">
+              <h3>Download our App</h3>
+              <p>Download App for Android and iOS mobile phones.</p>
+              <div class="app-logo">
+                  <img src="images/play-store.png">
+                  <img src="images/app-store.png">
+              </div>
+          </div>
+          <div class="footer-col-2">
+               <img src="images/logo-coolkiid.jpg" width="125px">
+              <p>Our Purpose is to Empower Self-Expression Through Bold,
+                  Sustainable Fashion That Inspires Confidence in Everyone</p>
+          </div>
+          <div class="footer-col-3">
+              <h3>Useful Links</h3>
+              <ul>
+                  <li>Coupons</li>
+                  <li>Blog Post</li>
+                  <li>Return Policy</li>
+                  <li>Join Affiliate</li>
+              </ul>
+          </div>
+          <div class="footer-col-4">
+              <h3>Follow Us</h3>
+              <ul>
+                  <li>Facebook</li>
+                  <li>X</li>
+                  <li>Instagram</li>
+                  <li>YouTube</li>
+              </ul>
+          </div>
+      </div>
+      <hr>
+      <p class="copyright">Copyright 2025 - CooLkiid's WebWizard</p>
+  </div>
+</div>
+
+</body>
+</html>

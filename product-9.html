@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products CooLkiid Kollection</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css"/>
+   
+</head>
+<body>
+
+ 
+    <div class="container">
+   <div class="navbar">
+    <div class="logo">
+         <img src="images/logo-coolkiid.jpg" width="125px">
+    </div>
+    <nav>
+        <ul id="MenuItems">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="account.html">Account</a></li>
+        </ul>
+    </nav>
+    <a href="cart.html"><img src="images/cart.png" width="30px" height="30px"></a>
+    <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+   </div>
+   
+</div>
+    
+<!--single product details-->
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="image/27.jpg" width="100%" id="ProductImg">
+            
+            <div class="small-img-row">
+                <div class="small-img-col">
+                    <img src="image/27.jpg" width="100%" class="small-img">
+                </div>
+                 <div class="small-img-col">
+                    <img src="image/28.jpg" width="100%" class="small-img">
+                </div>
+                 <div class="small-img-col">
+                    <img src="image/29.jpg" width="100%" class="small-img">
+                </div>
+            </div>
+
+        </div>
+         <div class="col-2">
+        <p>Home / T-Shirt by HRX</p>
+        <h1>Tiber Jacket</h1>
+        <h4>R350</h4>
+        <select>
+            <option>Select Size</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            <option>Extra Large</option>
+        </select>
+        <input type="number" value="1">
+        <button class="btn add-to-cart"
+          data-name="Tiber Jacket"
+          data-price="350"
+          data-image="image/27.jpg">
+          Add to Cart
+        </button>
+        <h3>Product Details <i class="fa fa-indent"></i></h3>
+        <p>Elevate your outerwear game with the sleek and stylish Tiber Jacket!</p>
+    </div>
+    </div>
+   
+</div>
+
+<!---tittle-->
+   <div class="small-container">
+    <div class="row row-2">
+       <h2>Related Product</h2>
+       <p>View More</p>
+    </div>
+   </div>
+<!--Product-->
+<div class="small-container">
+    <div class="row">
+        <div class="col-4">
+            <a href="product-12.html"><img src="image/40.png"></a>
+            <a href="product-12.html"><h4>Cartoon Duck Face</h4></a>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+            <p>R290</p>
+        </div>
+        <!--Another 4 clothes-->
+        <!--Another 4 cloths-->
+       
+    </div>
+</div>
+
+<!--footer-->
+<div class="footer">
+  <div class="container">
+      <div class="row">
+          <div class="footer-col-1">
+              <h3>Download our App</h3>
+              <p>Download App for Android and iOS mobile phones.</p>
+              <div class="app-logo">
+                  <img src="images/play-store.png">
+                  <img src="images/app-store.png">
+              </div>
+          </div>
+          <div class="footer-col-2">
+               <img src="images/logo-coolkiid.jpg" width="125px">
+              <p>Our Purpose is to Empower Self-Expression Through Bold,
+                  Sustainable Fashion That Inspires Confidence in Everyone</p>
+          </div>
+          <div class="footer-col-3">
+              <h3>Useful Links</h3>
+              <ul>
+                  <li>Coupons</li>
+                  <li>Blog Post</li>
+                  <li>Return Policy</li>
+                  <li>Join Affiliate</li>
+              </ul>
+          </div>
+          <div class="footer-col-4">
+              <h3>Follow Us</h3>
+              <ul>
+                  <li>Facebook</li>
+                  <li>X</li>
+                  <li>Instagram</li>
+                  <li>YouTube</li>
+              </ul>
+          </div>
+      </div>
+      <hr>
+      <p class="copyright">Copyright 2025 - CooLkiid's WebWizard</p>
+  </div>
+</div>
+
+      <!--js for toogle-->
+      <script>
+        var MenuItems=document.getElementById("MenuItems");
+
+        MenuItems.style.maxHeight="0px";
+
+        function menutoggle(){
+            if(MenuItems.style.maxHeight=="0px")
+        {
+            MenuItems.style.maxHeight="200px";
+        }
+        else
+        {
+         MenuItems.style.maxHeight="0px";
+        }
+        }
+      </script>
+
+      <!---JS for product gallary-->
+      <script>
+        var ProductImg = document.getElementById("ProductImg");
+        var SmallImg = document.getElementsByClassName("small-img");
+
+        SmallImg[0].onclick = function()
+        {
+            ProductImg.src=SmallImg[0].src
+        }
+         SmallImg[1].onclick = function()
+        {
+            ProductImg.src=SmallImg[1].src
+        }
+         SmallImg[2].onclick = function()
+        {
+            ProductImg.src=SmallImg[2].src
+        }
+        
+       
+      </script>
+
+
+  <!-- JS for Add to Cart -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const addToCartBtn = document.querySelector(".add-to-cart");
+
+      addToCartBtn.addEventListener("click", function () {
+        const name = this.dataset.name;
+        const price = parseFloat(this.dataset.price);
+        const image = this.dataset.image;
+        const quantity = parseInt(document.querySelector("input[type='number']").value) || 1;
+
+        const product = {
+          name: name,
+          price: price,
+          image: image,
+          quantity: quantity
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existing = cart.find(item => item.name === product.name);
+        if (existing) {
+          existing.quantity += product.quantity;
+        } else {
+          cart.push(product);
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} added to cart!`);
+        
+      });
+    });
+  </script>
+
+
+
+</body>
+</html>
