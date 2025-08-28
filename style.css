@@ -689,5 +689,41 @@ form a{
     margin-top: 20px;
   }
 }
+.submitTestimonial{
+    border: #333;
+    border-radius: 20px;
+    padding: 30px;
+
+}
+.cool{
+    background-color: #ff523b;
+    color: #f8f8f8;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cool:hover{
+    background-color: #0d3c61;
+}
+.inside{
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    padding: 12px 20px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+.cooll{
+     border: 2px solid #ddd;
+    border-radius: 5px;
+    padding: 12px 20px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 
